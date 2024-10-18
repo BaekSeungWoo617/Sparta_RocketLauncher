@@ -5,79 +5,60 @@ public class Rocket : MonoBehaviour
 {
     private Rigidbody2D _rb2d;
     [SerializeField]
-    private float fuel = 400f;
+    private float fuel = 100f;
     Rigidbody2D RocketRigidbody2D;
-    RectTransform FilledTransform;
+    protected RectTransform FilledTransform;
     private readonly float SPEED = 5f;
     private readonly float FUELPERSHOOT = 10f;
-    [SerializeField] private TextMeshProUGUI currentScoreTxt;
-    [SerializeField] private TextMeshProUGUI HighScoreTxt;
-    float CurrentScore;
-    float HighScore;
-    float fillamount;
+    [SerializeField] protected TextMeshProUGUI currentScoreTxt;
+    [SerializeField] protected TextMeshProUGUI HighScoreTxt;
+    protected float CurrentScore;
+    protected float HighScore;
+    [SerializeField] protected float fillamount;
 
+    private RocketDashboard rocketDashboard;
+    private RocketEnergySystem rocketEnergySystem;
     void Awake()
     {
         // TODO : Rigidbody2D 컴포넌트를 가져옴(캐싱) 
         RocketRigidbody2D = GetComponent<Rigidbody2D>();
         FilledTransform = GameObject.Find("Filled").GetComponent<RectTransform>();
+        fillamount += fuel;
     }
+
     private void Update()
     {
         ScoreUpdate();
+        FuelAdd(0.1f);
     }
-    public void FilledImage()
+    protected virtual void ScoreUpdate()
     {
-        Vector2 vector2Transform = FilledTransform.sizeDelta;
-        vector2Transform.x = fuel;
-        FilledTransform.sizeDelta = vector2Transform;
-
+        //Debug.Log("부모 호출");
     }
-    public void Shoot()
+    protected virtual void FuelAdd(float amount)
+    {
+        //Debug.Log("부모 호출");
+    }
+    protected virtual void FilledImage()
+    {
+        //Debug.Log("FilledImage를 Rocket에서 호출");
+    }
+
+    void Shoot()
     {
         // TODO : fuel이 넉넉하면 윗 방향으로 SPEED만큼의 힘으로 점프, 모자라면 무시
-        if (fuel >= FUELPERSHOOT)
+        if (fillamount >= FUELPERSHOOT)
         {
             Vector2 rocketForce = new Vector2(0f, SPEED);
             RocketRigidbody2D.AddForce(rocketForce, ForceMode2D.Impulse);
-                fuel -= FUELPERSHOOT;
-
+            fillamount -= FUELPERSHOOT;
         }
-    }
-
-
-    public void ReStartRocket()
-    {
-        SceneManager.LoadScene("RocketLauncher");
-    }
-    public void ScoreUpdate()
-    {
-        CurrentScore = this.gameObject.transform.position.y;
-        ScoreUIUpdate(currentScoreTxt, CurrentScore);
-        HighScoreDataUpdate();
-        ScoreUIUpdate(HighScoreTxt, HighScore);
         FilledImage();
     }
 
-    void ScoreUIUpdate(TextMeshProUGUI textUI,float score)
+
+    void ReStartRocket()
     {
-       if(textUI == HighScoreTxt)
-        {
-            textUI.text = $"HIGH : {(int)score} M";
-        }
-        else
-        {
-        textUI.text = $"{(int)score} M";
-        }
+        SceneManager.LoadScene("RocketLauncher");
     }
-
-
-    void HighScoreDataUpdate()
-    {
-        if(CurrentScore > HighScore)
-        {
-            HighScore = CurrentScore;
-        }
-    }
-
 }
