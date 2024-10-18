@@ -137,6 +137,8 @@ GameObject:
   - component: {fileID: 125341255}
   - component: {fileID: 125341254}
   - component: {fileID: 125341256}
+  - component: {fileID: 125341258}
+  - component: {fileID: 125341257}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Player
@@ -311,6 +313,32 @@ MonoBehaviour:
   fuel: 100
   currentScoreTxt: {fileID: 211887813}
   highScoreTxt: {fileID: 1997001785}
+--- !u!114 &125341257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125341250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89668b1458186934cb663c62a64eaf69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocket: {fileID: 125341256}
+--- !u!114 &125341258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125341250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b1035ff51c523438fc3d8eaf183571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocket: {fileID: 125341256}
 --- !u!1 &211887811
 GameObject:
   m_ObjectHideFlags: 0
