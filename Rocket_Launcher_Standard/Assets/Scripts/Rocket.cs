@@ -7,17 +7,18 @@ public class Rocket : MonoBehaviour
     [SerializeField]
     private float fuel = 100f;
     Rigidbody2D RocketRigidbody2D;
-    protected RectTransform FilledTransform;
+     protected RectTransform FilledTransform;
     private readonly float SPEED = 5f;
     private readonly float FUELPERSHOOT = 10f;
-    [SerializeField] protected TextMeshProUGUI currentScoreTxt;
-    [SerializeField] protected TextMeshProUGUI HighScoreTxt;
-    protected float CurrentScore;
-    protected float HighScore;
-    [SerializeField] protected float fillamount;
+    [SerializeField]  TextMeshProUGUI currentScoreTxt;
+    [SerializeField]  TextMeshProUGUI highScoreTxt;
+     float currentScore;
+     float highScore;
+     float fillamount;
 
     private RocketDashboard rocketDashboard;
     private RocketEnergySystem rocketEnergySystem;
+
     void Awake()
     {
         // TODO : Rigidbody2D 컴포넌트를 가져옴(캐싱) 
@@ -25,25 +26,38 @@ public class Rocket : MonoBehaviour
         FilledTransform = GameObject.Find("Filled").GetComponent<RectTransform>();
         fillamount += fuel;
     }
-
-    private void Update()
+    public float Fuel // public 프로퍼티 추가
     {
-        ScoreUpdate();
-        FuelAdd(0.1f);
+        get { return fuel; }
+        set { fuel = value; }
     }
-    protected virtual void ScoreUpdate()
+    public float CurrentScore // public 프로퍼티 추가
     {
-        //Debug.Log("부모 호출");
+        get { return currentScore; }
+        set { currentScore = value; }
     }
-    protected virtual void FuelAdd(float amount)
+    public float HighScore // public 프로퍼티 추가
     {
-        //Debug.Log("부모 호출");
+        get { return highScore; }
+        set { highScore = value; }
     }
-    protected virtual void FilledImage()
+    public float FillAmount
     {
-        //Debug.Log("FilledImage를 Rocket에서 호출");
+        get { return fillamount; }
+        set { fillamount = value; }
     }
-
+    public RectTransform FilledTransformProperty
+    {
+        get { return FilledTransform; }
+    }
+    public TextMeshProUGUI CurrentScoreTxt
+    {
+        get { return currentScoreTxt; }
+    }
+    public TextMeshProUGUI HighScoreTxt
+    {
+        get { return highScoreTxt; }
+    }
     void Shoot()
     {
         // TODO : fuel이 넉넉하면 윗 방향으로 SPEED만큼의 힘으로 점프, 모자라면 무시
@@ -53,7 +67,6 @@ public class Rocket : MonoBehaviour
             RocketRigidbody2D.AddForce(rocketForce, ForceMode2D.Impulse);
             fillamount -= FUELPERSHOOT;
         }
-        FilledImage();
     }
 
 

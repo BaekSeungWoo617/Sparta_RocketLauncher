@@ -310,7 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuel: 100
   currentScoreTxt: {fileID: 211887813}
-  HighScoreTxt: {fileID: 1997001785}
+  highScoreTxt: {fileID: 1997001785}
 --- !u!1 &211887811
 GameObject:
   m_ObjectHideFlags: 0

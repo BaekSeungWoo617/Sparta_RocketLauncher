@@ -1,18 +1,29 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-class RocketDashboard : Rocket
+class RocketDashboard : MonoBehaviour
 {
-    protected override void ScoreUpdate()
+    [SerializeField] private Rocket rocket;
+    private void Start()
     {
-        CurrentScore = this.gameObject.transform.position.y;
-        ScoreUIUpdate(currentScoreTxt, CurrentScore);
+        TextMeshProUGUI currentScoreTxt = rocket.CurrentScoreTxt;
+        TextMeshProUGUI highScoreTxt = rocket.HighScoreTxt;
+
+    }
+    private void Update()
+    {
+        ScoreUpdate();
+    }
+    void ScoreUpdate()
+    {
+        rocket.CurrentScore = this.gameObject.transform.position.y;
+        ScoreUIUpdate(rocket.CurrentScoreTxt, rocket.CurrentScore);
         HighScoreDataUpdate();
-        ScoreUIUpdate(HighScoreTxt, HighScore);
+        ScoreUIUpdate(rocket.HighScoreTxt, rocket.HighScore);
     }
     void ScoreUIUpdate(TextMeshProUGUI textUI, float score)
     {
-        if (textUI == HighScoreTxt)
+        if (textUI == rocket.HighScoreTxt)
         {
             textUI.text = $"HIGH : {(int)score} M";
         }
@@ -23,9 +34,9 @@ class RocketDashboard : Rocket
     }
     void HighScoreDataUpdate()
     {
-        if (CurrentScore > HighScore)
+        if (rocket.CurrentScore > rocket.HighScore)
         {
-            HighScore = CurrentScore;
+            rocket.HighScore = rocket.CurrentScore;
         }
     }
 

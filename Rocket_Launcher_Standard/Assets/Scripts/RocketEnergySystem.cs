@@ -1,25 +1,38 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-public class RocketEnergySystem :Rocket
+public class RocketEnergySystem : MonoBehaviour
 {
-    protected override void FuelAdd(float amount)
-    {
-        fillamount += amount;
+    [SerializeField] private Rocket rocket;
 
-        Debug.Log(fillamount);
-    }
-    protected override void FilledImage()
+    private void Start()
     {
-        Vector2 vector2Transform = FilledTransform.sizeDelta;
-        vector2Transform.x = fillamount;
-        if (fillamount > 100)
+    RectTransform filledTransform = rocket.FilledTransformProperty;
+
+
+    }
+    private void Update()
+    {
+        FuelAdd(0.1f);
+        FilledImage();
+    }
+    void FuelAdd(float amount)
+    {
+        rocket.FillAmount += amount;
+
+        Debug.Log(rocket.FillAmount);
+    }
+      void FilledImage()
+    {
+        Vector2 vector2Transform = rocket.FilledTransformProperty.sizeDelta;
+        vector2Transform.x = rocket.FillAmount;
+        if (rocket.FillAmount > 100)
         {
             return;
         }
         else
         {
-            FilledTransform.sizeDelta = vector2Transform;
+            rocket.FilledTransformProperty.sizeDelta = vector2Transform;
         }
     }
 }
